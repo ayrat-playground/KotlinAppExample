@@ -1,0 +1,20 @@
+apply plugin: 'org.flywaydb.flyway'
+
+Properties props = new Properties()
+props.load(new FileInputStream("${project.rootDir}/src/main/resources/application.properties"))
+
+static getEnvOrProp(Properties props, String envName, String propName) {
+    if (System.getenv(envName) != null) {
+        System.out.println(envName)
+        System.getenv(envName)
+    } else {
+        props.getProperty(propName)
+    }
+}
+
+flyway {
+    url      = "jdbc:" + getEnvOrProp(props, "DATABASE_URL", "database.url")
+    user     = getEnvOrProp(props, "DATABASE_USER", "database.user")
+    password = getEnvOrProp(props, "DATABASE_PASSWORD", "database.password")
+    encoding = "utf8"
+}

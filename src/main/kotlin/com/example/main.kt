@@ -9,6 +9,13 @@ import org.jetbrains.ktor.logging.CallLogging
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.Routing
 import org.jetbrains.ktor.routing.get
+import java.util.*
+
+fun getEnvOrProp(props: Properties, propName: String) {
+    System.out.println(props)
+    println(props.getProperty(propName))
+    props.getProperty(propName)
+}
 
 fun Application.main() {
     install(DefaultHeaders)
