@@ -9,7 +9,8 @@ buildscript {
     ext.mysql_connector_version = '6.0.5'
     ext.konfig_version = '1.6.2.1'
     ext.spek_version = '1.1.2'
-    ext.junit_plugin_version = '1.0.0-M4'
+    ext.junit_version = '1.0.0-M4'
+    ext.gson_version = '2.8.0'
 
     repositories {
         mavenCentral()
@@ -18,7 +19,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "gradle.plugin.com.boxfuse.client:flyway-release:${flyway_version}"
-        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_plugin_version"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
     }
 }
 
@@ -27,7 +28,7 @@ apply plugin: 'kotlin'
 apply plugin: 'application'
 apply plugin: 'org.junit.platform.gradle.plugin'
 
-mainClassName = 'org.jetbrains.ktor.netty.DevelopmentHost'
+mainClassName = 'com.example.MainKt'
 
 sourceCompatibility = 1.8
 compileKotlin {
@@ -67,6 +68,12 @@ dependencies {
     compile "mysql:mysql-connector-java:$mysql_connector_version"
     compile "com.natpryce:konfig:version=$konfig_version"
     compile "org.jetbrains.spek:spek-api:$spek_version"
-    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
+    compile "com.google.code.gson:gson:$gson_version"
+
+    testCompile "org.junit.platform:junit-platform-console:$junit_version"
+    testCompile "org.junit.platform:junit-platform-launcher:$junit_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testCompile "org.jetbrains.spek:spek-api:$spek_version"
+    testCompile "org.jetbrains.ktor:ktor-test-host:$ktor_version"
+    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
 }
